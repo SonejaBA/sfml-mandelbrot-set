@@ -18,6 +18,15 @@ void ComplexPlane::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(m_vArray);
 }
 
+void ComplexPlane::threadStuff() {
+
+	int numOfChunks = std::ceil((float)m_vArray.getVertexCount() / (float)NUM_THREADS);
+	std::vector<std::thread> threads;
+
+	
+	
+}
+
 void ComplexPlane::updateRender() {
 	sf::Vector2f convertedCoord;
 	size_t iterations;
@@ -31,7 +40,7 @@ void ComplexPlane::updateRender() {
 				iterations = countIterations(convertedCoord);
 				iterationsToRgb(iterations, r, g, b);
 				m_vArray[j + i * m_pixel_size.x].color = { r, g ,b };
-				
+
 			}
 		}
 		m_State = State::DISPLAYING;
@@ -42,7 +51,7 @@ void ComplexPlane::updateRender() {
 sf::Vector2f ComplexPlane::mapPixelToCoords(sf::Vector2i mousePixel) {
 	const int X_LEFT_BOUND = -2;
 	const int X_RIGHT_BOUND = 2;
-	
+
 	float xConverted, yConverted;
 
 	xConverted = ((float)mousePixel.x / (float)m_pixel_size.x) * m_plane_size.x + (m_plane_center.x - m_plane_size.x / 2.0);
@@ -158,7 +167,14 @@ void ComplexPlane::setMouseLocation(sf::Vector2i mousePixel) {
 	m_mouseLocation = mapPixelToCoords(mousePixel);
 }
 
-//void ComplexPlane::loadText(sf::Text& text) {
-//
-//}
+void ComplexPlane::loadText(sf::Text& text) {
+	std::ostringstream oss;
+	oss << "Mandelbrot Set" << std::endl;
+	oss << "Center : (" << m_plane_center.x << ", " << m_plane_center.y << ")" << std::endl;
+	oss << "Cursor: (" << m_mouseLocation.x << ", " << m_mouseLocation.y << ")" << std::endl;
+	oss << "Left-click to Zoom in" << std::endl;
+	oss << "Right-click to Zoom out" << std::endl;
+
+	text.setString(oss.str());
+}
 
