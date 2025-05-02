@@ -4,14 +4,12 @@
 #include <iostream>
 #include <complex>
 #include <sstream>
-#include <cstdlib>
-#include <ctime>
-
 
 const unsigned int MAX_ITER = 64;
 const float BASE_WIDTH = 4.0;
 const float BASE_HEIGHT = 4.0;
 const float BASE_ZOOM = 0.5;
+const unsigned int NUM_THREADS = std::thread::hardware_concurrency();
 
 enum class State { CALCULATING , DISPLAYING };
 
@@ -39,4 +37,5 @@ private:
 	size_t countIterations(sf::Vector2f coord);
 	void iterationsToRgb(size_t count, sf::Uint8& r, sf::Uint8& g, sf::Uint8& b);
 	sf::Vector2f mapPixelToCoords(sf::Vector2i mousePixel);
+	void threadStuff();
 };
