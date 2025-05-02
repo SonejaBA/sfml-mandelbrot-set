@@ -1,14 +1,16 @@
 #include "ComplexPlane.h"
 
+
+
 int main() {
 	std::srand(std::time(0));
-	int screenWidth = sf::VideoMode::getDesktopMode().width;
-	int screenHeight = sf::VideoMode::getDesktopMode().height;
-	sf::RenderWindow window(sf::VideoMode(screenWidth / 4, screenHeight / 4), "Mandelbrot set"); 
-	ComplexPlane complexPlane (screenWidth / 4, screenHeight / 4) ;
+	int screenWidth = sf::VideoMode::getDesktopMode().width / 2;
+	int screenHeight = sf::VideoMode::getDesktopMode().height / 2;
+	sf::RenderWindow window(sf::VideoMode(screenWidth, screenHeight), "Mandelbrot set");
+	ComplexPlane complexPlane(screenWidth, screenHeight);
 
 	sf::Font font;
-	
+
 	if (!font.loadFromFile("fonts/CaviarDreams.ttf")) {
 		std::cout << "Error. Font file not found." << std::endl;
 		return -1;
@@ -16,11 +18,11 @@ int main() {
 
 	sf::Text text;
 	text.setFont(font);
-	text.setString("Testing");
-
+	text.setPosition(10, 10);
+	text.setCharacterSize(20);
 
 	while (window.isOpen()) {
-		
+
 		sf::Event event;
 		while (window.pollEvent(event)) {
 			if (event.type == sf::Event::Closed) {
@@ -32,7 +34,7 @@ int main() {
 			}
 
 			if (event.type == sf::Event::MouseButtonPressed) {
-				if(event.key.code == sf::Mouse::Right) {
+				if (event.key.code == sf::Mouse::Right) {
 					complexPlane.zoomOut();
 					complexPlane.setCenter(sf::Vector2i(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y));
 				}
@@ -47,14 +49,15 @@ int main() {
 			}
 		}
 		complexPlane.updateRender();
+		complexPlane.loadText(text);
 
 		window.clear();
-		
-		
+
+
 		complexPlane.draw(window, sf::RenderStates::Default);
 		window.draw(text);
 
-		
+
 		window.display();
 
 	}
