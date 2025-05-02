@@ -3,7 +3,6 @@
 
 
 int main() {
-	std::srand(std::time(0));
 	int screenWidth = sf::VideoMode::getDesktopMode().width / 2;
 	int screenHeight = sf::VideoMode::getDesktopMode().height / 2;
 	sf::RenderWindow window(sf::VideoMode(screenWidth, screenHeight), "Mandelbrot set");
