@@ -18,15 +18,6 @@ void ComplexPlane::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(m_vArray);
 }
 
-void ComplexPlane::threadStuff() {
-
-	int numOfChunks = std::ceil((float)m_vArray.getVertexCount() / (float)NUM_THREADS);
-	std::vector<std::thread> threads;
-
-	
-	
-}
-
 void ComplexPlane::updateRender() {
 	sf::Vector2f convertedCoord;
 	size_t iterations;
@@ -177,4 +168,3 @@ void ComplexPlane::loadText(sf::Text& text) {
 
 	text.setString(oss.str());
 }
-
