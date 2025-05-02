@@ -1,8 +1,7 @@
 #include "ComplexPlane.h"
 
-
-
 int main() {
+	std::srand(std::time(0));
 	int screenWidth = sf::VideoMode::getDesktopMode().width / 2;
 	int screenHeight = sf::VideoMode::getDesktopMode().height / 2;
 	sf::RenderWindow window(sf::VideoMode(screenWidth, screenHeight), "Mandelbrot set");
@@ -19,6 +18,7 @@ int main() {
 	text.setFont(font);
 	text.setPosition(10, 10);
 	text.setCharacterSize(20);
+
 
 	while (window.isOpen()) {
 
